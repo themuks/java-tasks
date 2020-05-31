@@ -1,6 +1,7 @@
 package com.themuks;
 
 import com.themuks.task1.Task1Solver;
+import com.themuks.task2.Task2Solver;
 import com.themuks.util.Solver;
 
 import java.util.Scanner;
@@ -29,6 +30,9 @@ public class Main {
             switch (choice) {
                 case 1:
                     solver = new Task1Solver();
+                    break;
+                case 2:
+                    solver = new Task2Solver();
                     break;
             }
             if (solver != null) {
