@@ -18,9 +18,22 @@ public class Task10Solver implements Solver {
     @Override
     public boolean input() {
         Scanner in = new Scanner(System.in);
-        a = in.nextFloat();
-        b = in.nextFloat();
-        h = in.nextFloat();
+        if (in.hasNextFloat())
+            a = in.nextFloat();
+        else
+            return false;
+        if (in.hasNextFloat())
+            b = in.nextFloat();
+        else
+            return false;
+        if (in.hasNextFloat())
+            h = in.nextFloat();
+        else
+            return false;
+        if (a < b && h < 0)
+            return false;
+        if (b < a && h > 0)
+            return false;
         return true;
     }
 
@@ -32,6 +45,10 @@ public class Task10Solver implements Solver {
             fx = Math.tan(a);
             result.append(a).append(" ").append(fx).append("\n");
             a += h;
+        }
+        if (Math.abs(a - b) < EPS) {
+            fx = Math.tan(a);
+            result.append(a).append(" ").append(fx).append("\n");
         }
         return result.toString();
     }

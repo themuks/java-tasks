@@ -14,10 +14,22 @@ public class Task7Solver implements Solver {
     @Override
     public boolean input() {
         Scanner in = new Scanner(System.in);
-        x1 = in.nextFloat();
-        y1 = in.nextFloat();
-        x2 = in.nextFloat();
-        y2 = in.nextFloat();
+        if (in.hasNextFloat())
+            x1 = in.nextFloat();
+        else
+            return false;
+        if (in.hasNextFloat())
+            y1 = in.nextFloat();
+        else
+            return false;
+        if (in.hasNextFloat())
+            x2 = in.nextFloat();
+        else
+            return false;
+        if (in.hasNextFloat())
+            y2 = in.nextFloat();
+        else
+            return false;
         return true;
     }
 

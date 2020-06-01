@@ -13,7 +13,12 @@ public class Task9Solver implements Solver {
     @Override
     public boolean input() {
         Scanner in = new Scanner(System.in);
-        radius = in.nextFloat();
+        if (in.hasNextFloat())
+            radius = in.nextFloat();
+        else
+            return false;
+        if (radius < 0)
+            return false;
         return true;
     }
 

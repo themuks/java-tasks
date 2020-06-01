@@ -16,7 +16,10 @@ public class Task8Solver implements Solver {
     @Override
     public boolean input() {
         Scanner in = new Scanner(System.in);
-        x = in.nextFloat();
+        if (in.hasNextFloat())
+            x = in.nextFloat();
+        else
+            return false;
         return true;
     }
 
