@@ -1,6 +1,6 @@
 package com.kuntsevich.lesson1.entity;
 
-public enum Month {
+public enum CustomMonth {
 
     JANUARY(31),
     FEBRUARY(28),
@@ -17,7 +17,7 @@ public enum Month {
 
     private final int daysCount;
 
-    Month(int daysCount) {
+    CustomMonth(int daysCount) {
         this.daysCount = daysCount;
     }
 

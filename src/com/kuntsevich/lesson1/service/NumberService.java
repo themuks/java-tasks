@@ -1,6 +1,8 @@
 package com.kuntsevich.lesson1.service;
 
-import com.kuntsevich.lesson1.entity.Function;
+import com.kuntsevich.lesson1.entity.CustomFunction;
+import com.kuntsevich.lesson1.exception.IncorrectDataException;
+import com.kuntsevich.lesson1.validator.FunctionValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +39,16 @@ public class NumberService {
         return sum == num;
     }
 
-    public double[] getFunctionValuesInRange(Function function, double a, double b, double step) {
+    public double[] calcFunctionValues(CustomFunction customFunction, double start, double end, double step) throws IncorrectDataException {
+        FunctionValidator functionValidator = new FunctionValidator();
+        if (!functionValidator.validateFunctionBounds(start, end, step)) {
+            throw new IncorrectDataException();
+        }
         List<Double> list = new ArrayList<>();
-        while (a <= b) {
-            double value = function.getValue(a);
+        while (start <= end) {
+            double value = customFunction.calcValue(start);
             list.add(value);
-            a += step;
+            start += step;
         }
         return list.stream().mapToDouble(Double::doubleValue).toArray();
     }

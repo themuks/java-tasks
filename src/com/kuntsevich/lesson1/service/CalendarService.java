@@ -1,7 +1,7 @@
 package com.kuntsevich.lesson1.service;
 
 import com.kuntsevich.lesson1.exception.IncorrectDataException;
-import com.kuntsevich.lesson1.entity.Month;
+import com.kuntsevich.lesson1.entity.CustomMonth;
 import com.kuntsevich.lesson1.validator.CalendarValidator;
 
 public class CalendarService {
@@ -17,11 +17,11 @@ public class CalendarService {
         if (!calendarValidator.validateMonth(monthIndex)) {
             throw new IncorrectDataException("Month is out of range.");
         }
-        Month month = Month.values()[monthIndex - 1];
-        if (isLeapYear(year) && month == Month.FEBRUARY) {
-            return month.getDaysCount() + 1;
+        CustomMonth customMonth = CustomMonth.values()[monthIndex - 1];
+        if (isLeapYear(year) && customMonth == CustomMonth.FEBRUARY) {
+            return customMonth.getDaysCount() + 1;
         }
-        return month.getDaysCount();
+        return customMonth.getDaysCount();
     }
 
     public boolean isLeapYear(int year) {

@@ -1,11 +1,11 @@
 package com.kuntsevich.lesson1.entity;
 
-public class Point {
+public class CustomPoint {
 
     private final double x;
     private final double y;
 
-    public Point(double x, double y) {
+    public CustomPoint(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -26,8 +26,8 @@ public class Point {
         if (o == null || o.getClass() != this.getClass()) {
             return false;
         }
-        Point point = (Point) o;
-        return this.x == point.getX() && this.y == point.getY();
+        CustomPoint customPoint = (CustomPoint) o;
+        return this.x == customPoint.getX() && this.y == customPoint.getY();
     }
 
     @Override
