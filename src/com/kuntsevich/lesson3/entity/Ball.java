@@ -5,16 +5,18 @@ import com.kuntsevich.lesson3.validator.ParameterValidator;
 
 public class Ball {
 
-    private Color color;
-    private double weight;
+    private final Color color;
+    private final double weight;
+    private final double volume;
 
-    public Ball(Color color, double weight) throws IncorrectDataException {
+    public Ball(Color color, double weight, double volume) throws IncorrectDataException {
         ParameterValidator parameterValidator = new ParameterValidator();
-        if (!parameterValidator.validateWeight(weight)) {
-            throw new IncorrectDataException("Incorrect ball parameter");
+        if (!parameterValidator.validateWeight(weight) || !parameterValidator.validateMaxVolume(volume)) {
+            throw new IncorrectDataException("Incorrect ball parameters");
         }
         this.color = color;
         this.weight = weight;
+        this.volume = volume;
     }
 
     public Color getColor() {
@@ -23,6 +25,10 @@ public class Ball {
 
     public double getWeight() {
         return weight;
+    }
+
+    public double getVolume() {
+        return volume;
     }
 
     @Override
@@ -34,7 +40,9 @@ public class Ball {
             return false;
         }
         Ball ball = (Ball) o;
-        return this.color == ball.color && this.weight == ball.weight;
+        return this.color == ball.color
+                && this.weight == ball.weight
+                && this.volume == ball.volume;
     }
 
     @Override
@@ -44,14 +52,17 @@ public class Ball {
         result = color.hashCode();
         temp = Double.doubleToLongBits(weight);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(volume);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Ball{");
+        final StringBuilder sb = new StringBuilder("Ball{");
         sb.append("color=").append(color);
         sb.append(", weight=").append(weight);
+        sb.append(", volume=").append(volume);
         sb.append('}');
         return sb.toString();
     }

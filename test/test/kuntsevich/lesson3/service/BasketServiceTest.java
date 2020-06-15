@@ -7,6 +7,8 @@ import com.kuntsevich.lesson3.exception.IncorrectDataException;
 import com.kuntsevich.lesson3.service.BasketService;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 import static org.testng.Assert.*;
 
 public class BasketServiceTest {
@@ -14,18 +16,18 @@ public class BasketServiceTest {
     private BasketService basketService = new BasketService();
 
     @Test
-    public void testAddBallPositive() {
+    public void testAddPositive() {
         try {
-            assertTrue(basketService.addBall(new Basket(2, 2), new Ball(Color.BLUE, 1)));
+            assertTrue(new Basket(200, 2, new ArrayList<>()).add(new Ball(Color.BLUE, 1, 10)));
         } catch (IncorrectDataException e) {
             fail();
         }
     }
 
     @Test
-    public void testAddBallNegative() {
+    public void testAddNegative() {
         try {
-            assertFalse(basketService.addBall(new Basket(1, 1), new Ball(Color.BLUE, 2)));
+            assertFalse(new Basket(100, 1, new ArrayList<>()).add(new Ball(Color.BLUE, 2, 20)));
         } catch (IncorrectDataException e) {
             fail();
         }
@@ -35,42 +37,34 @@ public class BasketServiceTest {
     public void testFillBasket() {
         Basket basket = null;
         try {
-            basket = new Basket(10, 100);
+            basket = new Basket(1000, 100, new ArrayList<>());
         } catch (IncorrectDataException e) {
             fail();
         }
         basketService.fillBasket(basket);
         boolean result = false;
-        if (basket.getMaxWeight() >= basketService.calcBallsWeight(basket)
-                && basket.getBalls().size() <= basket.getMaxCount()) {
+        if (basket.getMaxWeight() >= basket.calcBallsWeight()
+                && basket.calcBallsVolume() <= basket.getMaxVolume()) {
             result = true;
         }
         assertTrue(result);
     }
 
     @Test
-    public void testCalcBallsWeight() {
+    public void testBallsCountByColor() {
         Basket basket = null;
         try {
-            basket = new Basket(10, 100);
-            basketService.addBall(basket, new Ball(Color.BLUE, 1));
-            basketService.addBall(basket, new Ball(Color.RED, 2));
+            basket = new Basket(1000, 100, new ArrayList<>());
+            basket.add(new Ball(Color.BLUE, 1, 10));
+            basket.add(new Ball(Color.RED, 2, 20));
         } catch (IncorrectDataException e) {
             fail();
         }
-        assertEquals(3, basketService.calcBallsWeight(basket), 0.001);
+        assertEquals(1, basketService.ballsCountByColor(Color.BLUE, basket));
     }
 
     @Test
-    public void testBlueBallsCount() {
-        Basket basket = null;
-        try {
-            basket = new Basket(10, 100);
-            basketService.addBall(basket, new Ball(Color.BLUE, 1));
-            basketService.addBall(basket, new Ball(Color.RED, 2));
-        } catch (IncorrectDataException e) {
-            fail();
-        }
-        assertEquals(1, basketService.blueBallsCount(basket));
+    public void testGenerateBall() {
+        assertNotNull(basketService.generateBall());
     }
 }

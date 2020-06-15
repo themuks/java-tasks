@@ -20,13 +20,13 @@ public class ParameterValidatorTest {
     }
 
     @Test
-    public void testValidateMaxCountPositive() {
-        assertTrue(parameterValidator.validateMaxCount(100));
+    public void testValidateMaxVolumePositive() {
+        assertTrue(parameterValidator.validateMaxVolume(100));
     }
 
     @Test
-    public void testValidateMaxCountNegative() {
-        assertFalse(parameterValidator.validateMaxCount(-1));
+    public void testValidateMaxVolumeNegative() {
+        assertFalse(parameterValidator.validateMaxVolume(-1));
     }
 
     @Test

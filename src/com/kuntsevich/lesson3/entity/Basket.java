@@ -3,35 +3,39 @@ package com.kuntsevich.lesson3.entity;
 import com.kuntsevich.lesson3.exception.IncorrectDataException;
 import com.kuntsevich.lesson3.validator.ParameterValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Basket {
 
-    private final int maxCount;
+    private final double maxVolume;
     private final double maxWeight;
 
-    private List<Ball> balls = new ArrayList<>();
+    private final List<Ball> balls;
 
-    public Basket(int maxCount, double maxWeight) throws IncorrectDataException {
+    public Basket(int maxVolume, double maxWeight, List<Ball> balls) throws IncorrectDataException {
         ParameterValidator parameterValidator = new ParameterValidator();
-        if (!parameterValidator.validateMaxCount(maxCount) || !parameterValidator.validateMaxWeight(maxWeight)) {
+        if (!parameterValidator.validateMaxVolume(maxVolume) || !parameterValidator.validateMaxWeight(maxWeight)) {
             throw new IncorrectDataException("Incorrect basket parameters");
         }
-        this.maxCount = maxCount;
+        this.maxVolume = maxVolume;
         this.maxWeight = maxWeight;
+        this.balls = balls;
     }
 
-    public int getMaxCount() {
-        return maxCount;
+    public double getMaxVolume() {
+        return maxVolume;
     }
 
     public double getMaxWeight() {
         return maxWeight;
     }
 
-    public List<Ball> getBalls() {
-        return balls;
+    public Ball get(int index) {
+        return balls.get(index);
+    }
+
+    public int size() {
+        return balls.size();
     }
 
     @Override
@@ -43,7 +47,7 @@ public class Basket {
             return false;
         }
         Basket basket = (Basket) o;
-        return this.maxCount == basket.maxCount
+        return this.maxVolume == basket.maxVolume
                 && this.maxWeight == basket.maxWeight
                 && this.balls.equals(basket.balls);
     }
@@ -52,7 +56,8 @@ public class Basket {
     public int hashCode() {
         int result;
         long temp;
-        result = maxCount;
+        temp = Double.doubleToLongBits(maxVolume);
+        result = (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(maxWeight);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + balls.hashCode();
@@ -62,10 +67,35 @@ public class Basket {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Basket{");
-        sb.append("maxCount=").append(maxCount);
+        sb.append("maxVolume=").append(maxVolume);
         sb.append(", maxWeight=").append(maxWeight);
         sb.append(", balls=").append(balls);
         sb.append('}');
         return sb.toString();
+    }
+
+    public boolean add(Ball ball) {
+        if (calcBallsVolume() + ball.getVolume() <= getMaxVolume()
+                && calcBallsWeight() + ball.getWeight() <= getMaxWeight()) {
+            balls.add(ball);
+            return true;
+        }
+        return false;
+    }
+
+    public double calcBallsVolume() {
+        double volume = 0;
+        for (Ball ball : balls) {
+            volume += ball.getVolume();
+        }
+        return volume;
+    }
+
+    public double calcBallsWeight() {
+        double weight = 0;
+        for (Ball ball : balls) {
+            weight += ball.getWeight();
+        }
+        return weight;
     }
 }
