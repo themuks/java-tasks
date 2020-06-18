@@ -1,8 +1,5 @@
 package com.kuntsevich.lesson3.entity;
 
-import com.kuntsevich.lesson3.exception.IncorrectDataException;
-import com.kuntsevich.lesson3.validator.ParameterValidator;
-
 import java.util.List;
 
 public class Basket {
@@ -12,11 +9,7 @@ public class Basket {
 
     private final List<Ball> balls;
 
-    public Basket(int maxVolume, double maxWeight, List<Ball> balls) throws IncorrectDataException {
-        ParameterValidator parameterValidator = new ParameterValidator();
-        if (!parameterValidator.validateMaxVolume(maxVolume) || !parameterValidator.validateMaxWeight(maxWeight)) {
-            throw new IncorrectDataException("Incorrect basket parameters");
-        }
+    public Basket(int maxVolume, double maxWeight, List<Ball> balls) {
         this.maxVolume = maxVolume;
         this.maxWeight = maxWeight;
         this.balls = balls;

@@ -1,19 +1,12 @@
 package com.kuntsevich.lesson3.entity;
 
-import com.kuntsevich.lesson3.exception.IncorrectDataException;
-import com.kuntsevich.lesson3.validator.ParameterValidator;
-
 public class Ball {
 
     private final Color color;
     private final double weight;
     private final double volume;
 
-    public Ball(Color color, double weight, double volume) throws IncorrectDataException {
-        ParameterValidator parameterValidator = new ParameterValidator();
-        if (!parameterValidator.validateWeight(weight) || !parameterValidator.validateMaxVolume(volume)) {
-            throw new IncorrectDataException("Incorrect ball parameters");
-        }
+    public Ball(Color color, double weight, double volume) {
         this.color = color;
         this.weight = weight;
         this.volume = volume;

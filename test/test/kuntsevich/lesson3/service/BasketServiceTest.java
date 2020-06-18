@@ -1,5 +1,7 @@
 package test.kuntsevich.lesson3.service;
 
+import com.kuntsevich.lesson3.creator.BallCreator;
+import com.kuntsevich.lesson3.creator.BasketCreator;
 import com.kuntsevich.lesson3.entity.Ball;
 import com.kuntsevich.lesson3.entity.Basket;
 import com.kuntsevich.lesson3.entity.Color;
@@ -14,11 +16,15 @@ import static org.testng.Assert.*;
 public class BasketServiceTest {
 
     private BasketService basketService = new BasketService();
+    private BallCreator ballCreator = new BallCreator();
+    private BasketCreator basketCreator = new BasketCreator();
 
     @Test
     public void testAddPositive() {
         try {
-            assertTrue(new Basket(200, 2, new ArrayList<>()).add(new Ball(Color.BLUE, 1, 10)));
+            Basket basket = basketCreator.createBasket(200, 2, new ArrayList<>());
+            Ball ball = ballCreator.createBall(Color.BLUE, 1, 10);
+            assertTrue(basket.add(ball));
         } catch (IncorrectDataException e) {
             fail();
         }
@@ -27,7 +33,9 @@ public class BasketServiceTest {
     @Test
     public void testAddNegative() {
         try {
-            assertFalse(new Basket(100, 1, new ArrayList<>()).add(new Ball(Color.BLUE, 2, 20)));
+            Basket basket = basketCreator.createBasket(100, 1, new ArrayList<>());
+            Ball ball = ballCreator.createBall(Color.BLUE, 2, 20);
+            assertFalse(basket.add(ball));
         } catch (IncorrectDataException e) {
             fail();
         }
@@ -37,7 +45,7 @@ public class BasketServiceTest {
     public void testFillBasket() {
         Basket basket = null;
         try {
-            basket = new Basket(1000, 100, new ArrayList<>());
+            basket = basketCreator.createBasket(1000, 100, new ArrayList<>());
         } catch (IncorrectDataException e) {
             fail();
         }
@@ -54,9 +62,9 @@ public class BasketServiceTest {
     public void testBallsCountByColor() {
         Basket basket = null;
         try {
-            basket = new Basket(1000, 100, new ArrayList<>());
-            basket.add(new Ball(Color.BLUE, 1, 10));
-            basket.add(new Ball(Color.RED, 2, 20));
+            basket = basketCreator.createBasket(1000, 100, new ArrayList<>());
+            basket.add(ballCreator.createBall(Color.BLUE, 1, 10));
+            basket.add(ballCreator.createBall(Color.RED, 2, 20));
         } catch (IncorrectDataException e) {
             fail();
         }
