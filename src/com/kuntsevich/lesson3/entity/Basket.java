@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Basket {
 
-    private final double maxVolume;
-    private final double maxWeight;
+    private double maxVolume;
+    private double maxWeight;
 
-    private final List<Ball> balls;
+    private List<Ball> balls;
 
     public Basket(int maxVolume, double maxWeight, List<Ball> balls) {
         this.maxVolume = maxVolume;
@@ -25,6 +25,14 @@ public class Basket {
 
     public Ball get(int index) {
         return balls.get(index);
+    }
+
+    public void setMaxVolume(double maxVolume) {
+        this.maxVolume = maxVolume;
+    }
+
+    public void setMaxWeight(double maxWeight) {
+        this.maxWeight = maxWeight;
     }
 
     public int size() {
@@ -74,6 +82,10 @@ public class Basket {
             return true;
         }
         return false;
+    }
+
+    public void clear() {
+        balls.clear();
     }
 
     public double calcBallsVolume() {

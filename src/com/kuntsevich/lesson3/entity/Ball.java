@@ -2,9 +2,9 @@ package com.kuntsevich.lesson3.entity;
 
 public class Ball {
 
-    private final Color color;
-    private final double weight;
-    private final double volume;
+    private Color color;
+    private double weight;
+    private double volume;
 
     public Ball(Color color, double weight, double volume) {
         this.color = color;
@@ -22,6 +22,18 @@ public class Ball {
 
     public double getVolume() {
         return volume;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     @Override
